@@ -1,11 +1,9 @@
 package com.timestudio.feicui.contacts.main.activity;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.animation.ObjectAnimator;
-import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
 import com.timestudio.feicui.contacts.R;
@@ -38,23 +36,41 @@ public class SplashActivity extends BaseActivity {
      * @description 加载动画
      */
     private void initAnimation(){
-        //淡入动画
-        ValueAnimator alphaAnim = ObjectAnimator.ofFloat(iv_splash,"alpha",0.0f,1.0f);
-        //设置动画时间
-        alphaAnim.setDuration(3000);
-        //设置动画结束后的监听
-        alphaAnim.addListener(new AnimatorListenerAdapter() {
+        //xml方式实现补间动画ViewAnimation
+        //加载XML文件中的animation
+        final Animation anim = AnimationUtils.loadAnimation(this,R.anim.anim_splash);
+        //设置动画持续时间3000ms
+        anim.setDuration(3000);
+        //设置动画监听
+        anim.setAnimationListener(new Animation.AnimationListener() {
             @Override
-            public void onAnimationEnd(Animator animation) {
-                //播放结束后实现页面跳转
-                Intent intent = new Intent(SplashActivity.this,MainActivity.class);
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                //设置Intent，实现动画结束后跳转到主界面
+                Intent intent = new Intent();
+                //设置从LogoActivity跳转到MainActivity
+                intent.setClass(SplashActivity.this,PhoneTypeActivity.class);
+                //跳转界面
                 startActivity(intent);
-                //结束释放动画界面
+                //跳转结束后结束动画界面
                 finish();
             }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
         });
-        //开启动画
-        alphaAnim.start();
+
+        //开启动画：方式1
+        iv_splash.setAnimation(anim);
+        anim.start();
+        //开启动画:方式2
+//        im_logo.startAnimation(anim);
     }
     /**
      * 当前页是否已获得焦点

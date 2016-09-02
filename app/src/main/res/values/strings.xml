@@ -1,6 +1,6 @@
 <resources>
-    <string name="app_name">contacts</string>
-    <string name="phone_Title">一站式服务平台</string>
+    <string name="app_name">NIUB通讯</string>
+    <string name="phone_Title">一站式号码服务平台</string>
     <string name="exit_toast">再次点击退出</string>
 
 </resources>

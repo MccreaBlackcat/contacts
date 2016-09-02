@@ -5,27 +5,26 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.timestudio.feicui.contacts.R;
-import com.timestudio.feicui.contacts.main.entity.PhoneTypeEntity;
+import com.timestudio.feicui.contacts.main.entity.PhoneNumberEntity;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
- * @author  Created by ShenGqiang on 2016/8/26.
- * @description 电话类型的适配器
+ * @author  Created by ShenGqiang on 2016/9/2.
+ * @description  电话名字和号码的适配器
  */
-public class PhoneTypeAdapter extends BaseAdapter{
-    ArrayList <PhoneTypeEntity> mData = new ArrayList<>();//存储了电话类型的type的集合
-    protected LayoutInflater inflater;//声明一个布局加载器
+public class PhoneNumberAdapter extends BaseAdapter {
+    //实例化一个存储PhoneNumberEntity对象的 ArrayList
+    private ArrayList<PhoneNumberEntity> mData = new ArrayList<>();
+    //声明一个布局加载器
+    protected LayoutInflater inflater;
 
-    public PhoneTypeAdapter (Context context , ArrayList<PhoneTypeEntity> list) {
-        this.mData = list;
-        //获取布局
-        inflater = LayoutInflater.from(context); //实例化布局加载器
+    public PhoneNumberAdapter(ArrayList<PhoneNumberEntity> mData, Context context) {
+        this.mData = mData;
+        inflater = LayoutInflater.from(context);
     }
 
     @Override
@@ -49,23 +48,26 @@ public class PhoneTypeAdapter extends BaseAdapter{
         ViewHolder holder ;
         if(convertView==null){
             //使用布局加载器加载布局
-            convertView = inflater.inflate(R.layout.item_pt_list,null);
+            convertView = inflater.inflate(R.layout.item_pn_list,null);
             //保存ViewHolder的状态
             holder = new ViewHolder();
-            holder.tv_typeName = (TextView) convertView.findViewById(R.id.tv_typeName);
+            holder.tv_phoneName = (TextView) convertView.findViewById(R.id.tv_phonename);
+            holder.tv_phoneNumber = (TextView) convertView.findViewById(R.id.tv_phonenum);
             convertView.setTag(holder);
         }
         else{
             holder = (ViewHolder)convertView.getTag();
         }
         //从数据源中装载数据
-        holder.tv_typeName.setText(mData.get(position).getPhoneTypeName());
+        holder.tv_phoneName.setText(mData.get(position).getPhoneName());
+        holder.tv_phoneNumber.setText(mData.get(position).getPhoneNumber());
         return convertView;
     }
 
     //优化适配器
     public class ViewHolder{
+        TextView tv_phoneName;//电话名字
+        TextView tv_phoneNumber;//电话号码
 
-        TextView tv_typeName;//电话类型
     }
 }

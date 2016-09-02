@@ -3,6 +3,7 @@ package com.timestudio.feicui.contacts.main.activity;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Window;
+import android.view.WindowManager;
 
 /**
  * @author ShenGuiqiang
@@ -13,8 +14,11 @@ public abstract class BaseActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //设置无标题
+        //去掉标题栏和状态栏
         requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         //初始化Activity
         setContentView(setContent());
         initView();
